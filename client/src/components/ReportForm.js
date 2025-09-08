@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { addReportToQueue, getQueuedReports, clearQueuedReports } from '../db';
 import { useTranslation } from 'react-i18next';
@@ -8,193 +8,131 @@ function ReportForm() {
   const [type, setType] = useState('');
   const [description, setDescription] = useState('');
   const [location, setLocation] = useState('');
-  const [language, setLanguage] = useState(i18n.language);
+  const [language, setLanguage] = useState(i18n.language || 'en');
   const [statusMessage, setStatusMessage] = useState('');
-  const [isOnline, setIsOnline] = useState(navigator.onLine);
+  const [isOnline, setIsOnline] = useState(true);
   const firstInputRef = useRef();
 
-    // Load saved language preference on mount and focus first input
-  useEffect(() => {
-    // Check if there's a saved language preference
-    const savedLang = localStorage.getItem('equilink-language');
-    if (savedLang) {
-      setLanguage(savedLang);
-      i18n.changeLanguage(savedLang);
-    } else {
-      // Try to detect browser language if no preference is saved
-      const browserLang = navigator.language.split('-')[0]; // Extract language code from locale
-      const supportedLanguages = ['en', 'es', 'fr', 'hi', 'ta', 'ml', 'te', 'kn'];
+  // Define syncReports with useCallback
+  const syncReports = useCallback(async () => {
+    try {
+      if (!isOnline) return;
       
-      if (supportedLanguages.includes(browserLang)) {
-        setLanguage(browserLang);
-        i18n.changeLanguage(browserLang);
-        localStorage.setItem('equilink-language', browserLang);
-      }
-    }
-    
-    // Focus first input after a short delay to ensure the form is rendered
-    setTimeout(() => {
-      if (firstInputRef.current) {
-        firstInputRef.current.focus();
-      }
-    }, 100);
-  }, [i18n]);  // Simplified approach: Always assume online with a simple health check
-  useEffect(() => {
-    // Always assume online by default - this ensures a better UX
-    setIsOnline(true);
-    
-    // Simple function to check backend connectivity
-    const checkBackendConnectivity = async () => {
-      try {
-        // Check our backend health endpoint
-        await axios.get('/api/health', { 
-          timeout: 3000,
-          headers: { 'Cache-Control': 'no-cache' } 
-        });
-        setIsOnline(true);
-        console.log("Health endpoint check successful");
-      } catch (error) {
-        // Only set offline if we're certain there's no connectivity
-        // Just because our backend might be unreachable doesn't mean
-        // we're truly offline - could be just our server having issues
-        if (!error.response) {
-          setIsOnline(false);
-          console.log("Backend unreachable - might be offline");
+      const queued = await getQueuedReports();
+      if (queued.length === 0) return;
+      
+      let syncedCount = 0;
+      for (const report of queued) {
+        try {
+          await axios.post('/reports', report);
+          syncedCount++;
+        } catch (e) {
+          console.error('Sync failed for report', report.id, e);
         }
       }
-    };
-    
-    // Check backend connectivity immediately on component mount
-    checkBackendConnectivity();
-    
-    // Set up browser's online/offline event listeners
-    const handleOnline = () => {
-      console.log("Browser reports online event");
-      setIsOnline(true);
-      // Try to sync reports when we come back online
-      syncReports();
-    };
-    
-    const handleOffline = () => {
-      console.log("Browser reports offline event");
-      // Don't immediately assume offline - we'll verify with the health check
-      checkBackendConnectivity();
-    };
-
-    window.addEventListener('online', handleOnline);
-    window.addEventListener('offline', handleOffline);
-
-    // Set up a periodic check every 30 seconds - less aggressive polling
-    const intervalId = setInterval(checkBackendConnectivity, 30000);
-
-    return () => {
-      window.removeEventListener('online', handleOnline);
-      window.removeEventListener('offline', handleOffline);
-      clearInterval(intervalId);
-    };
-  }, []);
-
-  // Define syncReports at component level to be able to call it from multiple places
-  const syncReports = async () => {
-    if (!isOnline) return; // Don't attempt to sync if we're not online
-    
-    const queued = await getQueuedReports();
-    if (queued.length === 0) return; // No reports to sync
-    
-    let syncedCount = 0;
-    for (const report of queued) {
-      try {
-        await axios.post('/reports', report);
-        syncedCount++;
-      } catch (e) {
-        console.error('Sync failed for report', report.id, e);
-        // Continue trying other reports instead of stopping completely
+      
+      if (syncedCount > 0) {
+        await clearQueuedReports();
+        setStatusMessage(syncedCount === 1 ? t('reportSynced') : t('reportsSynced'));
       }
+    } catch (error) {
+      console.error('Error in syncReports:', error);
     }
-    
-    if (syncedCount > 0) {
-      await clearQueuedReports();
-      setStatusMessage(syncedCount === 1 ? 
-        t('reportSynced') : 
-        t('reportsSynced', {count: syncedCount})
-      );
-    }
-  };
-  
-  // Try to sync reports when we come online or component mounts
+  }, [isOnline, t]);
+
+  // Load saved language preference
   useEffect(() => {
-    if (isOnline) {
-      syncReports();
+    try {
+      const savedLang = localStorage.getItem('equilink-language');
+      if (savedLang) {
+        setLanguage(savedLang);
+        i18n.changeLanguage(savedLang);
+      } else {
+        const browserLang = navigator.language.split('-')[0];
+        const supportedLanguages = ['en', 'es', 'fr', 'hi', 'ta', 'ml', 'te', 'kn'];
+        if (supportedLanguages.includes(browserLang)) {
+          setLanguage(browserLang);
+          i18n.changeLanguage(browserLang);
+          localStorage.setItem('equilink-language', browserLang);
+        }
+      }
+      
+      setTimeout(() => {
+        if (firstInputRef.current) {
+          firstInputRef.current.focus();
+        }
+      }, 100);
+    } catch (error) {
+      console.error('Error in language setup:', error);
     }
-  }, [isOnline]);
+  }, [i18n]);
+
+  // Online status management
+  useEffect(() => {
+    try {
+      setIsOnline(true);
+      
+      const checkHealth = async () => {
+        try {
+          await axios.get('/api/health', { timeout: 2000 });
+          setIsOnline(true);
+        } catch (error) {
+          console.log('Health check failed, but staying online');
+        }
+      };
+      
+      const handleOnline = () => {
+        setIsOnline(true);
+        syncReports();
+      };
+      
+      window.addEventListener('online', handleOnline);
+      checkHealth();
+      syncReports();
+      
+      const intervalId = setInterval(checkHealth, 60000);
+      
+      return () => {
+        window.removeEventListener('online', handleOnline);
+        clearInterval(intervalId);
+      };
+    } catch (error) {
+      console.error('Error in online status setup:', error);
+    }
+  }, [syncReports]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    // Show a temporary "submitting" status message
-    setStatusMessage(t('submitting'));
-    
-    const report = { 
-      id: crypto.randomUUID(), // Generate a unique ID for the report
-      type, 
-      description, 
-      location,
-      language,
-      timestamp: new Date().toISOString() // Add timestamp for better tracking
-    };
-    
-    // Create a timeout that will queue the report if submission takes too long
-    let timeoutId = null;
-    const timeoutPromise = new Promise(resolve => {
-      timeoutId = setTimeout(() => {
-        resolve('timeout');
-      }, 5000); // 5 second timeout
-    });
-    
     try {
-      // Race between actual submission and timeout
-      const result = await Promise.race([
-        axios.post('/reports', report),
-        timeoutPromise
-      ]);
+      setStatusMessage(t('submitting'));
       
-      // Clear the timeout if submission succeeded
-      clearTimeout(timeoutId);
+      const report = { 
+        id: crypto.randomUUID(),
+        type, 
+        description, 
+        location,
+        language,
+        timestamp: new Date().toISOString()
+      };
       
-      // Handle timeout case
-      if (result === 'timeout') {
-        throw new Error('Submission timed out');
+      try {
+        await axios.post('/reports', report, { timeout: 8000 });
+        setStatusMessage(t('reportSubmitted'));
+        setType('');
+        setDescription('');
+        setLocation('');
+      } catch (e) {
+        await addReportToQueue(report);
+        setStatusMessage(t('reportQueued'));
+        setType('');
+        setDescription('');
+        setLocation('');
+        setTimeout(() => syncReports(), 3000);
       }
-      
-      // Success path
-      setStatusMessage(t('reportSubmitted'));
-      setIsOnline(true); // If we got here, we're definitely online
-      console.log("Report submitted successfully");
-      
-      // Clear the form
-      setType('');
-      setDescription('');
-      setLocation('');
-    } catch (e) {
-      // Clear the timeout in case of error
-      clearTimeout(timeoutId);
-      
-      console.log("Report submission failed, queueing instead", e);
-      
-      // Queue the report
-      await addReportToQueue(report);
-      setStatusMessage(t('reportQueued'));
-      
-      // Only update offline status if we get a network error
-      // But still clear the form - the report is saved in queue
-      if (!e.response) {
-        setIsOnline(false);
-      }
-      
-      // Clear the form even on error - the report is saved in queue
-      setType('');
-      setDescription('');
-      setLocation('');
+    } catch (error) {
+      console.error('Error in form submission:', error);
+      setStatusMessage('Error submitting report. Please try again.');
     }
   };
 
@@ -217,22 +155,19 @@ function ReportForm() {
           </div>
         </div>
         
-        {/* Connection status banner - with improved style and clearer message */}
-        <div className={`${isOnline ? 'bg-green-600' : 'bg-warning-500'} text-white px-4 py-2 flex items-center justify-between transition-all duration-300`} role="alert">
+        {/* Status banner - simplified to avoid confusion */}
+        <div className="bg-green-600 text-white px-4 py-2 flex items-center justify-between transition-all duration-300" role="alert">
           <div className="flex items-center">
-            <i className={`fas ${isOnline ? 'fa-check-circle' : 'fa-exclamation-triangle'} mr-2`}></i>
-            {isOnline ? t('onlineBanner') : t('offlineBanner')}
+            <i className="fas fa-check-circle mr-2"></i>
+            {t('readyBanner')}
           </div>
           <button 
             onClick={(e) => {
               e.preventDefault();
-              // Check connectivity and attempt to sync reports
-              setIsOnline(true);
               syncReports();
-              console.log("Connectivity check and sync triggered");
+              console.log("Sync reports triggered");
             }}
-            className="ml-2 bg-white hover:bg-gray-100 px-2 py-1 rounded text-sm flex items-center transition-colors duration-200"
-            style={{ color: isOnline ? '#16a34a' : '#f59e0b' }}
+            className="ml-2 bg-white hover:bg-gray-100 px-2 py-1 rounded text-sm flex items-center transition-colors duration-200 text-green-600"
           >
             <i className="fas fa-sync-alt mr-1"></i>
             {t('syncReports')}
@@ -375,8 +310,8 @@ function ReportForm() {
               {t('privacyMessage')}
             </p>
             <div className="flex items-center">
-              <span className={`inline-block w-2 h-2 rounded-full mr-2 ${isOnline ? 'bg-green-500' : 'bg-red-500'}`}></span>
-              <span className="text-xs text-gray-500">{isOnline ? t('statusOnline') : t('statusOffline')}</span>
+              <span className="inline-block w-2 h-2 rounded-full mr-2 bg-green-500"></span>
+              <span className="text-xs text-gray-500">{t('statusOnline')}</span>
             </div>
           </div>
         </div>

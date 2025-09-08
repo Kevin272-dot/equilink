@@ -1,31 +1,161 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
-import en from './locales/en.json';
-import es from './locales/es.json';
-import fr from './locales/fr.json';
-import hi from './locales/hi.json';
-import ta from './locales/ta.json';
-import ml from './locales/ml.json';
-import te from './locales/te.json';
-import kn from './locales/kn.json';
+const resources = {
+  en: {
+    translation: {
+      "appName": "Equilink",
+      "home": "Home", 
+      "dashboard": "Dashboard",
+      "report": "Report",
+      "submitReport": "Submit Report",
+      "dashboardTitle": "Reports Dashboard",
+      "title": "Safe Workplace Reporting",
+      "subtitle": "Report harassment, discrimination, and safety concerns anonymously",
+      "onlineStatus": "Connected - Reports will be submitted immediately",
+      "offlineStatus": "Offline - Reports will be saved locally and submitted when connection is restored",
+      "incidentType": "Type of Incident",
+      "harassment": "Harassment",
+      "discrimination": "Discrimination", 
+      "safety": "Safety Concern",
+      "other": "Other",
+      "description": "Description",
+      "descriptionPlaceholder": "Describe the incident in detail...",
+      "location": "Location", 
+      "locationPlaceholder": "Where did this occur?",
+      "date": "Date",
+      "submit": "Submit Report",
+      "submitting": "Submitting...",
+      "reportSubmitted": "Report submitted successfully",
+      "reportQueued": "Report saved locally and will be submitted when online",
+      "submitError": "Error submitting report. Please try again.",
+      "connectionStatus": "Connection Status",
+      "online": "Online",
+      "offline": "Offline",
+      "totalReports": "Total Reports",
+      "pendingReports": "Pending Reports", 
+      "approvedReports": "Approved Reports",
+      "rejectedReports": "Rejected Reports",
+      "reportsByType": "Reports by Type",
+      "reportStatus": "Report Status Distribution",
+      "heroTitle": "Creating Safe Workplaces Through Anonymous Reporting",
+      "heroSubtitle": "Equilink empowers employees to report workplace issues safely and anonymously, fostering a culture of transparency and accountability.",
+      "getStarted": "Get Started",
+      "learnMore": "Learn More",
+      "features": "Features",
+      "anonymousReporting": "Anonymous Reporting",
+      "anonymousReportingDesc": "Submit reports without revealing your identity, ensuring your safety and privacy.",
+      "offlineCapability": "Offline Capability", 
+      "offlineCapabilityDesc": "Reports are saved locally when offline and automatically submitted when connection is restored.",
+      "multiLanguage": "Multi-Language Support",
+      "multiLanguageDesc": "Available in 8 languages to serve diverse workplaces and communities.",
+      "howItWorks": "How It Works",
+      "step1Title": "Report Incident",
+      "step1Desc": "Fill out the secure form with incident details",
+      "step2Title": "Anonymous Submission", 
+      "step2Desc": "Your report is submitted anonymously to protect your identity",
+      "step3Title": "Review & Action",
+      "step3Desc": "Administrators review and take appropriate action",
+      "readyToReport": "Ready to Make a Report?",
+      "readyToReportDesc": "Help create a safer workplace by reporting incidents confidentially.",
+      "reportNow": "Report Now",
+      "viewDashboard": "View Dashboard",
+      "error": "Error",
+      "failedToLoadReports": "Failed to load reports. Showing demo data.",
+      "loadingDashboard": "Loading dashboard...",
+      "reportStatistics": "Report Statistics",
+      "reportCharts": "Report Visualization Charts",
+      "barChartDescription": "Bar chart showing {{count}} different report types and their frequencies",
+      "pieChartDescription": "Pie chart showing report status distribution: {{pending}} pending, {{approved}} approved, {{rejected}} rejected",
+      "noDataAvailable": "No data available to display",
+      "skipToContent": "Skip to main content",
+      "mainNavigation": "Main navigation"
+    }
+  },
+  es: {
+    translation: {
+      "appName": "Equilink",
+      "home": "Inicio", 
+      "dashboard": "Panel de Control",
+      "report": "Reportar",
+      "submitReport": "Enviar Reporte",
+      "dashboardTitle": "Panel de Reportes",
+      "title": "Reportes de Lugar de Trabajo Seguro",
+      "subtitle": "Reporta acoso, discriminación y problemas de seguridad de forma anónima",
+      "onlineStatus": "Conectado - Los reportes se enviarán inmediatamente",
+      "offlineStatus": "Sin conexión - Los reportes se guardarán localmente y se enviarán cuando se restaure la conexión",
+      "incidentType": "Tipo de Incidente",
+      "harassment": "Acoso",
+      "discrimination": "Discriminación", 
+      "safety": "Problema de Seguridad",
+      "other": "Otro",
+      "description": "Descripción",
+      "descriptionPlaceholder": "Describe el incidente en detalle...",
+      "location": "Ubicación", 
+      "locationPlaceholder": "¿Dónde ocurrió esto?",
+      "date": "Fecha",
+      "submit": "Enviar Reporte",
+      "submitting": "Enviando...",
+      "reportSubmitted": "Reporte enviado exitosamente",
+      "reportQueued": "Reporte guardado localmente y se enviará cuando esté en línea",
+      "submitError": "Error al enviar el reporte. Por favor, inténtalo de nuevo.",
+      "connectionStatus": "Estado de Conexión",
+      "online": "En línea",
+      "offline": "Sin conexión",
+      "totalReports": "Total de Reportes",
+      "pendingReports": "Reportes Pendientes", 
+      "approvedReports": "Reportes Aprobados",
+      "rejectedReports": "Reportes Rechazados",
+      "reportsByType": "Reportes por Tipo",
+      "reportStatus": "Distribución de Estado de Reportes",
+      "heroTitle": "Creando Lugares de Trabajo Seguros a través de Reportes Anónimos",
+      "heroSubtitle": "Equilink empodera a los empleados para reportar problemas del lugar de trabajo de manera segura y anónima, fomentando una cultura de transparencia y responsabilidad.",
+      "getStarted": "Comenzar",
+      "learnMore": "Saber Más",
+      "features": "Características",
+      "anonymousReporting": "Reportes Anónimos",
+      "anonymousReportingDesc": "Envía reportes sin revelar tu identidad, asegurando tu seguridad y privacidad.",
+      "offlineCapability": "Capacidad Sin Conexión", 
+      "offlineCapabilityDesc": "Los reportes se guardan localmente cuando están sin conexión y se envían automáticamente cuando se restaura la conexión.",
+      "multiLanguage": "Soporte Multi-idioma",
+      "multiLanguageDesc": "Disponible en 8 idiomas para servir lugares de trabajo y comunidades diversas.",
+      "howItWorks": "Cómo Funciona",
+      "step1Title": "Reportar Incidente",
+      "step1Desc": "Completa el formulario seguro con detalles del incidente",
+      "step2Title": "Envío Anónimo", 
+      "step2Desc": "Tu reporte se envía de forma anónima para proteger tu identidad",
+      "step3Title": "Revisión y Acción",
+      "step3Desc": "Los administradores revisan y toman las medidas apropiadas",
+      "readyToReport": "¿Listo para Hacer un Reporte?",
+      "readyToReportDesc": "Ayuda a crear un lugar de trabajo más seguro reportando incidentes confidencialmente.",
+      "reportNow": "Reportar Ahora",
+      "viewDashboard": "Ver Panel de Control",
+      "error": "Error",
+      "failedToLoadReports": "Error al cargar reportes. Mostrando datos de demostración.",
+      "loadingDashboard": "Cargando panel de control...",
+      "reportStatistics": "Estadísticas de Reportes",
+      "reportCharts": "Gráficos de Visualización de Reportes",
+      "barChartDescription": "Gráfico de barras mostrando {{count}} tipos diferentes de reportes y sus frecuencias",
+      "pieChartDescription": "Gráfico circular mostrando distribución de estado de reportes: {{pending}} pendientes, {{approved}} aprobados, {{rejected}} rechazados",
+      "noDataAvailable": "No hay datos disponibles para mostrar",
+      "skipToContent": "Saltar al contenido principal",
+      "mainNavigation": "Navegación principal"
+    }
+  }
+};
 
 i18n
   .use(initReactI18next)
   .init({
-    resources: { 
-  en: { translation: en }, 
-  es: { translation: es }, 
-  fr: { translation: fr },
-  hi: { translation: hi },
-  ta: { translation: ta },
-  ml: { translation: ml },
-  te: { translation: te },
-  kn: { translation: kn }
-    },
-    lng: 'en',
+    resources,
     fallbackLng: 'en',
-    interpolation: { escapeValue: false },
+    lng: localStorage.getItem('equilink-language') || 'en',
+    
+    keySeparator: false,
+    
+    interpolation: {
+      escapeValue: false,
+    }
   });
 
 export default i18n;

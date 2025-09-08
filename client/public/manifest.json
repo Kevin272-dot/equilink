@@ -1,6 +1,7 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Equilink",
+  "name": "Equilink - Anonymous Reporting Platform",
+  "description": "Secure and anonymous platform for reporting incidents and promoting accountability",
   "icons": [
     {
       "src": "favicon.ico",
@@ -20,6 +21,10 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#4F46E5",
+  "background_color": "#ffffff",
+  "orientation": "portrait-primary",
+  "categories": ["social", "utilities"],
+  "lang": "en",
+  "scope": "."
 }
