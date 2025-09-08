@@ -1,0 +1,11 @@
+{
+  "appTitle": "Signalement Anonyme",
+  "submit": "Soumettre",
+  "typeLabel": "Type de Rapport",
+  "descriptionLabel": "Description",
+  "languageLabel": "Langue",
+  "reportsSynced": "Tous les rapports en attente ont été synchronisés.",
+  "reportSubmitted": "Rapport soumis avec succès.",
+  "reportQueued": "Vous êtes hors ligne. Le rapport sera mis en file d'attente pour une synchronisation ultérieure.",
+  "offlineBanner": "Vous êtes hors ligne — les rapports seront mis en file d'attente."
+}

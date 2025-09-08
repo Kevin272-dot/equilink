@@ -83,6 +83,12 @@ function ReportForm() {
           <select id="language" value={language} onChange={e => setLanguage(e.target.value)}>
             <option value="en">English</option>
             <option value="es">Español</option>
+            <option value="fr">Français</option>
+            <option value="hi">हिंदी</option>
+            <option value="ta">தமிழ்</option>
+            <option value="ml">മലയാളം</option>
+            <option value="te">తెలుగు</option>
+            <option value="kn">ಕನ್ನಡ</option>
           </select>
         </div>
         <button type="submit">{t('submit')}</button>
