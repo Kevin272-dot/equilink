@@ -7,83 +7,88 @@
     <!-- Include Tailwind CSS via CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Include Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
     <script>
       tailwind.config = {
         theme: {
           extend: {
             colors: {
               primary: {
-                50: '#e3f2fd',
-                100: '#bbdefb',
-                200: '#90caf9',
-                300: '#64b5f6',
-                400: '#42a5f5',
-                500: '#3498db',
-                600: '#2980b9',
-                700: '#1e88e5',
-                800: '#1565c0',
-                900: '#0d47a1',
+                50: "#e3f2fd",
+                100: "#bbdefb",
+                200: "#90caf9",
+                300: "#64b5f6",
+                400: "#42a5f5",
+                500: "#3498db",
+                600: "#2980b9",
+                700: "#1e88e5",
+                800: "#1565c0",
+                900: "#0d47a1",
               },
               danger: {
-                50: '#fdecea',
-                100: '#f8c9c5',
-                200: '#f3a59e',
-                300: '#ed8276',
-                400: '#e8584a',
-                500: '#e74c3c',
-                600: '#d32f2f',
-                700: '#c0392b',
-                800: '#b71c1c',
-                900: '#7f0000',
+                50: "#fdecea",
+                100: "#f8c9c5",
+                200: "#f3a59e",
+                300: "#ed8276",
+                400: "#e8584a",
+                500: "#e74c3c",
+                600: "#d32f2f",
+                700: "#c0392b",
+                800: "#b71c1c",
+                900: "#7f0000",
               },
               success: {
-                50: '#e8f5e9',
-                100: '#c8e6c9',
-                200: '#a5d6a7',
-                300: '#81c784',
-                400: '#66bb6a',
-                500: '#2ecc71',
-                600: '#27ae60',
-                700: '#388e3c',
-                800: '#2e7d32',
-                900: '#1b5e20',
+                50: "#e8f5e9",
+                100: "#c8e6c9",
+                200: "#a5d6a7",
+                300: "#81c784",
+                400: "#66bb6a",
+                500: "#2ecc71",
+                600: "#27ae60",
+                700: "#388e3c",
+                800: "#2e7d32",
+                900: "#1b5e20",
               },
               warning: {
-                50: '#fff8e1',
-                100: '#ffecb3',
-                200: '#ffe082',
-                300: '#ffd54f',
-                400: '#ffca28',
-                500: '#f39c12',
-                600: '#ffa000',
-                700: '#ff8f00',
-                800: '#ff6f00',
-                900: '#ff5722',
+                50: "#fff8e1",
+                100: "#ffecb3",
+                200: "#ffe082",
+                300: "#ffd54f",
+                400: "#ffca28",
+                500: "#f39c12",
+                600: "#ffa000",
+                700: "#ff8f00",
+                800: "#ff6f00",
+                900: "#ff5722",
               },
             },
             fontFamily: {
-              sans: ['Inter', 'system-ui', 'sans-serif'],
+              sans: ["Inter", "system-ui", "sans-serif"],
             },
             boxShadow: {
-              'custom': '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
-              'custom-lg': '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+              custom:
+                "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
+              "custom-lg":
+                "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
             },
             animation: {
-              'fade-in': 'fadeIn 0.5s ease-out forwards',
-              'slide-up': 'slideUp 0.5s ease-out forwards',
-              'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+              "fade-in": "fadeIn 0.5s ease-out forwards",
+              "slide-up": "slideUp 0.5s ease-out forwards",
+              "pulse-slow": "pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite",
             },
             keyframes: {
               fadeIn: {
-                '0%': { opacity: '0' },
-                '100%': { opacity: '1' },
+                "0%": { opacity: "0" },
+                "100%": { opacity: "1" },
               },
               slideUp: {
-                '0%': { transform: 'translateY(20px)', opacity: '0' },
-                '100%': { transform: 'translateY(0)', opacity: '1' },
+                "0%": { transform: "translateY(20px)", opacity: "0" },
+                "100%": { transform: "translateY(0)", opacity: "1" },
               },
-            }
+            },
           },
         },
       };
@@ -105,7 +110,7 @@
       ::-webkit-scrollbar-thumb:hover {
         background: #2980b9;
       }
-      
+
       /* Staggered animation for items */
       .stagger-item {
         opacity: 0;
@@ -113,134 +118,296 @@
       }
     </style>
   </head>
-  <body class="bg-gray-100 text-gray-800 min-h-screen py-8 px-4">
-    <div class="max-w-2xl mx-auto">
-      <h1 class="text-3xl font-bold text-center text-dark mb-8">
-        Report Finalization
-      </h1>
+  <body
+    class="bg-gradient-to-br from-gray-50 to-gray-200 text-gray-800 min-h-screen py-8 px-4"
+  >
+    <!-- Decorative elements -->
+    <div
+      class="fixed top-0 left-0 w-full h-1 bg-gradient-to-r from-primary-500 via-warning-500 to-success-500"
+    ></div>
+
+    <div class="max-w-3xl mx-auto">
+      <header class="mb-10 animate-fade-in">
+        <h1 class="text-4xl font-bold text-center text-dark mb-2 relative">
+          Report Finalization
+          <span
+            class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-primary-500 rounded-full"
+          ></span>
+        </h1>
+        <p class="text-center text-gray-600">
+          Review and decide on this report
+        </p>
+      </header>
 
       <div
-        class="bg-white rounded-lg shadow-md p-6 mb-8 transition-all duration-300 hover:shadow-lg"
+        class="bg-white rounded-2xl shadow-custom p-8 mb-8 transform transition-all duration-300 hover:shadow-custom-lg hover:-translate-y-1"
       >
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-y-4 mb-6">
-          <div>
-            <span class="text-dark font-semibold block mb-1">Report ID</span>
-            <span class="font-mono text-sm">{{ report.id }}</span>
-          </div>
-
-          <div>
-            <span class="text-dark font-semibold block mb-1">Status</span>
+        <!-- Status indicator -->
+        <div class="absolute -top-4 right-8">
+          <span
+            class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-warning-500 text-white shadow-lg"
+          >
             <span
-              class="inline-block px-3 py-1 rounded-full text-xs font-medium bg-warning text-white"
+              class="w-2 h-2 bg-white rounded-full mr-2 animate-pulse-slow"
+            ></span>
+            {{ report.status }}
+          </span>
+        </div>
+
+        <!-- Report header -->
+        <div
+          class="flex items-center border-b border-gray-100 pb-6 mb-6 stagger-item"
+        >
+          <div class="bg-primary-100 rounded-full p-3 mr-4">
+            <i class="fas fa-clipboard-list text-primary-600 text-2xl"></i>
+          </div>
+          <div>
+            <h2 class="text-xl font-semibold text-dark">Report Details</h2>
+            <p class="text-gray-500 text-sm">
+              Submitted on {{ report.timestamp.strftime('%b %d, %Y at %H:%M') }}
+            </p>
+          </div>
+        </div>
+
+        <!-- Report details in cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+          <div
+            class="bg-gray-50 rounded-xl p-4 border border-gray-100 hover:border-primary-200 transition-all duration-200 stagger-item group"
+          >
+            <div class="flex items-center mb-2">
+              <i
+                class="fas fa-fingerprint text-primary-500 mr-2 group-hover:text-primary-600 transition-colors"
+              ></i>
+              <span class="text-dark font-semibold">Report ID</span>
+            </div>
+            <span
+              class="font-mono text-sm bg-gray-100 px-2 py-1 rounded block overflow-x-auto"
+              >{{ report.id }}</span
             >
-              {{ report.status }}
-            </span>
           </div>
 
-          <div>
-            <span class="text-dark font-semibold block mb-1">Type</span>
-            <span>{{ report.type }}</span>
+          <div
+            class="bg-gray-50 rounded-xl p-4 border border-gray-100 hover:border-primary-200 transition-all duration-200 stagger-item group"
+          >
+            <div class="flex items-center mb-2">
+              <i
+                class="fas fa-tag text-primary-500 mr-2 group-hover:text-primary-600 transition-colors"
+              ></i>
+              <span class="text-dark font-semibold">Type</span>
+            </div>
+            <span
+              class="bg-primary-50 text-primary-700 px-3 py-1 rounded-full inline-block"
+              >{{ report.type }}</span
+            >
           </div>
 
-          <div>
-            <span class="text-dark font-semibold block mb-1">Language</span>
+          <div
+            class="bg-gray-50 rounded-xl p-4 border border-gray-100 hover:border-primary-200 transition-all duration-200 stagger-item group"
+          >
+            <div class="flex items-center mb-2">
+              <i
+                class="fas fa-globe text-primary-500 mr-2 group-hover:text-primary-600 transition-colors"
+              ></i>
+              <span class="text-dark font-semibold">Language</span>
+            </div>
             <span>{{ report.language }}</span>
           </div>
 
-          <div>
-            <span class="text-dark font-semibold block mb-1">Submitted</span>
+          <div
+            class="bg-gray-50 rounded-xl p-4 border border-gray-100 hover:border-primary-200 transition-all duration-200 stagger-item group"
+          >
+            <div class="flex items-center mb-2">
+              <i
+                class="fas fa-calendar text-primary-500 mr-2 group-hover:text-primary-600 transition-colors"
+              ></i>
+              <span class="text-dark font-semibold">Submitted</span>
+            </div>
             <span>{{ report.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</span>
           </div>
 
           {% if report.location %}
-          <div>
-            <span class="text-dark font-semibold block mb-1">Location</span>
+          <div
+            class="bg-gray-50 rounded-xl p-4 border border-gray-100 hover:border-primary-200 transition-all duration-200 stagger-item group md:col-span-2"
+          >
+            <div class="flex items-center mb-2">
+              <i
+                class="fas fa-map-marker-alt text-primary-500 mr-2 group-hover:text-primary-600 transition-colors"
+              ></i>
+              <span class="text-dark font-semibold">Location</span>
+            </div>
             <span>{{ report.location }}</span>
           </div>
           {% endif %}
         </div>
 
-        <div class="mb-6">
-          <span class="text-dark font-semibold block mb-2">Description</span>
-          <p class="bg-gray-50 p-4 rounded-md">{{ report.description }}</p>
+        <!-- Description section -->
+        <div class="mb-8 stagger-item">
+          <div class="flex items-center mb-3">
+            <i class="fas fa-align-left text-primary-500 mr-2"></i>
+            <h3 class="text-lg font-semibold text-dark">Description</h3>
+          </div>
+          <div
+            class="bg-gray-50 p-5 rounded-xl border border-gray-100 relative"
+          >
+            <div
+              class="absolute -top-3 -left-3 bg-white p-2 rounded-lg shadow-md"
+            >
+              <i class="fas fa-quote-left text-primary-400"></i>
+            </div>
+            <p class="text-gray-700">{{ report.description }}</p>
+          </div>
         </div>
 
+        <!-- Decision form -->
         <form
           action="{{ url_for('reports.finalize_report', report_id=report.id) }}"
           method="post"
-          class="animate-fadeIn"
+          class="stagger-item"
         >
-          <div class="mb-6">
-            <label for="notes" class="text-dark font-semibold block mb-2"
-              >Additional Notes</label
-            >
-            <textarea
-              name="notes"
-              id="notes"
-              rows="4"
-              class="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200"
-              placeholder="Add any additional notes about this report..."
-            ></textarea>
+          <div class="mb-8">
+            <div class="flex items-center mb-3">
+              <i class="fas fa-pen text-primary-500 mr-2"></i>
+              <label for="notes" class="text-lg font-semibold text-dark"
+                >Additional Notes</label
+              >
+            </div>
+            <div class="relative">
+              <textarea
+                name="notes"
+                id="notes"
+                rows="4"
+                class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200 bg-white"
+                placeholder="Add any additional notes about this report..."
+              ></textarea>
+              <div
+                class="absolute bottom-3 right-3 text-gray-400 text-sm hidden"
+                id="char-counter"
+              >
+                <span id="char-count">0</span> characters
+              </div>
+            </div>
           </div>
 
-          <div
-            class="flex flex-col sm:flex-row justify-center items-center gap-3"
-          >
-            <button
-              type="submit"
-              name="action"
-              value="approve"
-              class="w-full sm:w-auto bg-success hover:bg-success/80 text-white py-2 px-6 rounded-md font-medium transition-colors duration-200"
+          <div class="border-t border-gray-100 pt-8 mt-8 stagger-item">
+            <h3 class="text-lg font-semibold text-dark mb-4 text-center">
+              Make Your Decision
+            </h3>
+            <div
+              class="flex flex-col sm:flex-row justify-center items-center gap-4"
             >
-              Approve
-            </button>
-            <button
-              type="submit"
-              name="action"
-              value="reject"
-              class="w-full sm:w-auto bg-danger hover:bg-danger/80 text-white py-2 px-6 rounded-md font-medium transition-colors duration-200"
-            >
-              Reject
-            </button>
-            <a
-              href="{{ url_for('reports.get_all_reports') }}"
-              class="w-full sm:w-auto bg-primary hover:bg-primary/80 text-white py-2 px-6 rounded-md font-medium text-center transition-colors duration-200"
-            >
-              Back to Reports
-            </a>
+              <button
+                type="submit"
+                name="action"
+                value="approve"
+                class="w-full sm:w-auto bg-gradient-to-r from-success-400 to-success-600 hover:from-success-500 hover:to-success-700 text-white py-3 px-8 rounded-xl font-medium transition-all duration-200 shadow-md hover:shadow-lg flex items-center justify-center gap-2 group"
+              >
+                <i
+                  class="fas fa-check-circle transform group-hover:scale-110 transition-transform"
+                ></i>
+                Approve
+              </button>
+              <button
+                type="submit"
+                name="action"
+                value="reject"
+                class="w-full sm:w-auto bg-gradient-to-r from-danger-400 to-danger-600 hover:from-danger-500 hover:to-danger-700 text-white py-3 px-8 rounded-xl font-medium transition-all duration-200 shadow-md hover:shadow-lg flex items-center justify-center gap-2 group"
+              >
+                <i
+                  class="fas fa-times-circle transform group-hover:scale-110 transition-transform"
+                ></i>
+                Reject
+              </button>
+              <a
+                href="{{ url_for('reports.get_all_reports') }}"
+                class="w-full sm:w-auto bg-gradient-to-r from-primary-400 to-primary-600 hover:from-primary-500 hover:to-primary-700 text-white py-3 px-8 rounded-xl font-medium text-center transition-all duration-200 shadow-md hover:shadow-lg flex items-center justify-center gap-2 group"
+              >
+                <i
+                  class="fas fa-arrow-left transform group-hover:-translate-x-1 transition-transform"
+                ></i>
+                Back to Reports
+              </a>
+            </div>
           </div>
         </form>
       </div>
-    </div>
 
-    <!-- Add animation -->
-    <style>
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-          transform: translateY(10px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-      .animate-fadeIn {
-        animation: fadeIn 0.5s ease-out forwards;
-      }
-    </style>
+      <!-- Floating help button -->
+      <div class="fixed bottom-6 right-6">
+        <button
+          class="bg-primary-500 hover:bg-primary-600 text-white w-12 h-12 rounded-full shadow-lg flex items-center justify-center transition-all duration-200 hover:scale-110"
+          id="help-button"
+          aria-label="Help"
+        >
+          <i class="fas fa-question"></i>
+        </button>
+      </div>
+
+      <!-- Help tooltip (hidden by default) -->
+      <div
+        id="help-tooltip"
+        class="fixed bottom-24 right-6 bg-white rounded-lg shadow-xl p-4 w-64 transform scale-0 opacity-0 transition-all duration-200 origin-bottom-right z-50"
+      >
+        <h3 class="text-dark font-semibold mb-2">Finalization Help</h3>
+        <p class="text-sm text-gray-600 mb-3">
+          Review the report details and make a decision by approving or
+          rejecting it. Add notes to explain your decision.
+        </p>
+        <button
+          id="close-tooltip"
+          class="text-primary-500 hover:text-primary-700 text-sm font-medium"
+        >
+          Close
+        </button>
+      </div>
+    </div>
 
     <script>
       document.addEventListener("DOMContentLoaded", () => {
-        const container = document.querySelector(".bg-white");
-        container.style.opacity = "0";
-        container.style.transform = "translateY(20px)";
+        // Staggered animation for elements
+        const staggerItems = document.querySelectorAll(".stagger-item");
+        staggerItems.forEach((item, index) => {
+          setTimeout(() => {
+            item.style.animation = "slideUp 0.5s ease-out forwards";
+          }, 100 + index * 100);
+        });
 
-        setTimeout(() => {
-          container.style.transition = "opacity 0.5s ease, transform 0.5s ease";
-          container.style.opacity = "1";
-          container.style.transform = "translateY(0)";
-        }, 100);
+        // Character counter for textarea
+        const textarea = document.getElementById("notes");
+        const charCounter = document.getElementById("char-counter");
+        const charCount = document.getElementById("char-count");
+
+        if (textarea && charCounter && charCount) {
+          textarea.addEventListener("focus", () => {
+            charCounter.classList.remove("hidden");
+          });
+
+          textarea.addEventListener("blur", () => {
+            if (textarea.value.length === 0) {
+              charCounter.classList.add("hidden");
+            }
+          });
+
+          textarea.addEventListener("input", () => {
+            charCount.textContent = textarea.value.length;
+          });
+        }
+
+        // Help button functionality
+        const helpButton = document.getElementById("help-button");
+        const helpTooltip = document.getElementById("help-tooltip");
+        const closeTooltip = document.getElementById("close-tooltip");
+
+        if (helpButton && helpTooltip && closeTooltip) {
+          helpButton.addEventListener("click", () => {
+            helpTooltip.style.opacity = "1";
+            helpTooltip.style.transform = "scale(1)";
+          });
+
+          closeTooltip.addEventListener("click", () => {
+            helpTooltip.style.opacity = "0";
+            helpTooltip.style.transform = "scale(0)";
+          });
+        }
       });
     </script>
   </body>
