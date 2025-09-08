@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="{{ report.language }}">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EquiLink - Report Details</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        color: #333;
+      }
+      h1 {
+        color: #2c3e50;
+        text-align: center;
+        margin-bottom: 30px;
+      }
+      .report-container {
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      .report-field {
+        margin-bottom: 15px;
+      }
+      .field-label {
+        font-weight: bold;
+        color: #2c3e50;
+      }
+      .report-actions {
+        margin-top: 30px;
+        text-align: center;
+      }
+      .btn {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #3498db;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        text-decoration: none;
+        font-size: 16px;
+      }
+      .btn:hover {
+        background-color: #2980b9;
+      }
+      .status-badge {
+        display: inline-block;
+        padding: 5px 10px;
+        border-radius: 4px;
+        font-size: 14px;
+        color: white;
+      }
+      .status-pending {
+        background-color: #f39c12;
+      }
+      .status-approved {
+        background-color: #2ecc71;
+      }
+      .status-rejected {
+        background-color: #e74c3c;
+      }
+      .notes {
+        background-color: #ecf0f1;
+        padding: 15px;
+        border-radius: 4px;
+        margin-top: 15px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Report Details</h1>
+
+    <div class="report-container">
+      <div class="report-field">
+        <span class="field-label">Report ID:</span>
+        {{ report.id }}
+      </div>
+
+      <div class="report-field">
+        <span class="field-label">Status:</span>
+        <span class="status-badge status-{{ report.status }}"
+          >{{ report.status }}</span
+        >
+      </div>
+
+      <div class="report-field">
+        <span class="field-label">Type:</span>
+        {{ report.type }}
+      </div>
+
+      <div class="report-field">
+        <span class="field-label">Description:</span>
+        <p>{{ report.description }}</p>
+      </div>
+
+      {% if report.location %}
+      <div class="report-field">
+        <span class="field-label">Location:</span>
+        {{ report.location }}
+      </div>
+      {% endif %}
+
+      <div class="report-field">
+        <span class="field-label">Submitted:</span>
+        {{ report.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}
+      </div>
+
+      <div class="report-field">
+        <span class="field-label">Language:</span>
+        {{ report.language }}
+      </div>
+
+      {% if report.notes %}
+      <div class="report-field">
+        <span class="field-label">Notes:</span>
+        <div class="notes">{{ report.notes }}</div>
+      </div>
+      {% endif %}
+
+      <div class="report-actions">
+        <a href="{{ url_for('reports.get_all_reports') }}" class="btn"
+          >Back to Reports</a
+        >
+      </div>
+    </div>
+  </body>
+</html>

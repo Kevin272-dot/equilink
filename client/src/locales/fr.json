@@ -3,6 +3,7 @@
   "submit": "Soumettre",
   "typeLabel": "Type de Rapport",
   "descriptionLabel": "Description",
+  "locationLabel": "Emplacement",
   "languageLabel": "Langue",
   "reportsSynced": "Tous les rapports en attente ont été synchronisés.",
   "reportSubmitted": "Rapport soumis avec succès.",

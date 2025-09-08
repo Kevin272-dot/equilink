@@ -3,6 +3,7 @@
   "submit": "Enviar",
   "typeLabel": "Tipo de Reporte",
   "descriptionLabel": "Descripción",
+  "locationLabel": "Ubicación",
   "languageLabel": "Idioma",
   "reportsSynced": "Todos los reportes pendientes han sido sincronizados.",
   "reportSubmitted": "Reporte enviado exitosamente.",

@@ -7,6 +7,7 @@ function ReportForm() {
   const { t, i18n } = useTranslation();
   const [type, setType] = useState('');
   const [description, setDescription] = useState('');
+  const [location, setLocation] = useState('');
   const [language, setLanguage] = useState(i18n.language);
   const [statusMessage, setStatusMessage] = useState('');
   const firstInputRef = useRef();
@@ -37,7 +38,14 @@ function ReportForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const report = { type, description, language };
+    const report = { 
+      id: crypto.randomUUID(), // Generate a unique ID for the report
+      type, 
+      description, 
+      location,
+      language,
+      timestamp: new Date().toISOString() // Add timestamp for better tracking
+    };
     if (navigator.onLine) {
       try {
         await axios.post('/reports', report);
@@ -52,6 +60,7 @@ function ReportForm() {
     }
     setType('');
     setDescription('');
+    setLocation('');
   };
 
   return (
@@ -76,6 +85,15 @@ function ReportForm() {
             value={description}
             onChange={e => setDescription(e.target.value)}
             required
+          />
+        </div>
+        <div>
+          <label htmlFor="location">{t('locationLabel')}</label>
+          <input
+            id="location"
+            value={location}
+            onChange={e => setLocation(e.target.value)}
+            placeholder="City, Region, Country"
           />
         </div>
         <div>

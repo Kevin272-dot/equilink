@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="widt                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Type</th>
+                    <th>Location</th>
+                    <th>Submitted</th>
+                    <th>Language</th>
+                    <th>Status</th>
+                    <th>Actions</th>width, initial-scale=1.0">
+    <title>EquiLink - Reports</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            color: #333;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .reports-container {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #2c3e50;
+            color: white;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 14px;
+            color: white;
+        }
+        .status-pending {
+            background-color: #f39c12;
+        }
+        .status-approved {
+            background-color: #2ecc71;
+        }
+        .status-rejected {
+            background-color: #e74c3c;
+        }
+        .btn {
+            display: inline-block;
+            padding: 6px 12px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .btn:hover {
+            background-color: #2980b9;
+        }
+        .language-filter {
+            margin-bottom: 20px;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <h1>EquiLink Reports</h1>
+    
+    <div class="language-filter">
+        <form method="GET" action="{{ url_for('reports.get_all_reports') }}">
+            <label for="language">Filter by Language:</label>
+            <select name="language" id="language">
+                <option value="">All Languages</option>
+                <option value="en" {% if filter_language == 'en' %}selected{% endif %}>English</option>
+                <option value="es" {% if filter_language == 'es' %}selected{% endif %}>Español</option>
+                <option value="fr" {% if filter_language == 'fr' %}selected{% endif %}>Français</option>
+                <option value="hi" {% if filter_language == 'hi' %}selected{% endif %}>हिंदी</option>
+                <option value="ta" {% if filter_language == 'ta' %}selected{% endif %}>தமிழ்</option>
+                <option value="ml" {% if filter_language == 'ml' %}selected{% endif %}>മലയാളം</option>
+                <option value="te" {% if filter_language == 'te' %}selected{% endif %}>తెలుగు</option>
+                <option value="kn" {% if filter_language == 'kn' %}selected{% endif %}>ಕನ್ನಡ</option>
+            </select>
+            <button type="submit" class="btn">Filter</button>
+        </form>
+    </div>
+    
+    <div class="reports-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>{{ _("ID") }}</th>
+                    <th>{{ _("Type") }}</th>
+                    <th>{{ _("Location") }}</th>
+                    <th>{{ _("Submitted") }}</th>
+                    <th>{{ _("Language") }}</th>
+                    <th>{{ _("Status") }}</th>
+                    <th>{{ _("Actions") }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for report in reports %}
+                <tr>
+                    <td>{{ report.id[:8] }}...</td>
+                    <td>{{ report.type }}</td>
+                    <td>{{ report.location or "-" }}</td>
+                    <td>{{ report.timestamp.strftime('%Y-%m-%d %H:%M') }}</td>
+                    <td>{{ report.language }}</td>
+                    <td>
+                        <span class="status-badge status-{{ report.status }}">{{ report.status }}</span>
+                    </td>
+                    <td>
+                        {% if not report.finalized %}
+                            <a href="{{ url_for('reports.finalize_view', report_id=report.id) }}" class="btn">Finalize</a>
+                        {% else %}
+                            <a href="{{ url_for('reports.view_report', report_id=report.id) }}" class="btn">View</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+                
+                {% if not reports %}
+                <tr>
+                    <td colspan="7" style="text-align: center;">No reports found</td>
+                </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

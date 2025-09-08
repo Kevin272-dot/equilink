@@ -1,7 +1,10 @@
-from flask import Flask
+from flask import Flask, request
 from config import Config
 from extensions import db, migrate, cors
 from routes import reports_bp
+
+
+# We'll handle language selection in the frontend
 
 
 def create_app():
@@ -9,10 +12,14 @@ def create_app():
     app = Flask(
         __name__,
         static_folder="client/build",
-        static_url_path=""
+        static_url_path="",
+        template_folder="Templates"
     )
     app.config.from_object(Config)
     app.config['JSON_AS_ASCII'] = False
+    app.config['SECRET_KEY'] = 'equilink-secret-key'
+
+    # Initialize extensions
     db.init_app(app)
     migrate.init_app(app, db)
     cors.init_app(app)
