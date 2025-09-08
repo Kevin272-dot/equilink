@@ -26,6 +26,11 @@ def create_app():
     app.register_blueprint(reports_bp, url_prefix='/reports')
     # Catch-all route to serve React app
 
+    # Add a health check endpoint for the React app to check connectivity
+    @app.route('/api/health')
+    def health_check():
+        return {"status": "online"}, 200
+
     @app.route('/', defaults={'path': ''})
     @app.route('/<path:path>')
     def serve_react(path):

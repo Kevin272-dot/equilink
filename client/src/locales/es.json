@@ -9,8 +9,11 @@
   "reportSubmitted": "Reporte enviado exitosamente.",
   "reportQueued": "Estás desconectado. El reporte se guardará para sincronizar más tarde.",
   "offlineBanner": "Estás desconectado — los reportes se guardarán en cola.",
+  "refreshStatus": "Verificar conexión",
   "typePlaceholder": "Tipo de incidente",
   "descriptionPlaceholder": "Describe lo que ocurrió...",
   "locationPlaceholder": "Ciudad, Región, País",
-  "privacyMessage": "Tu privacidad y seguridad son nuestras principales prioridades."
+  "privacyMessage": "Tu privacidad y seguridad son nuestras principales prioridades.",
+  "statusOnline": "En línea",
+  "statusOffline": "Desconectado"
 }

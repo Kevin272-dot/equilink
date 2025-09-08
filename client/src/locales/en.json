@@ -1,16 +1,23 @@
 {
   "appTitle": "Welcome to Equilink",
-  "submit": "Submit",
+  "submit": "Submit Report",
   "typeLabel": "Report Type",
   "descriptionLabel": "Description",
   "locationLabel": "Location",
   "languageLabel": "Language",
   "reportsSynced": "All queued reports have been synced.",
+  "reportSynced": "1 report has been successfully synced.",
+  "submitting": "Submitting your report...",
   "reportSubmitted": "Report submitted successfully.",
-  "reportQueued": "You're offline. Report queued for later sync.",
-  "offlineBanner": "You are offline — reports will be queued.",
+  "reportQueued": "Report saved for later submission.",
+  "offlineBanner": "Limited connectivity — reports will be saved.",
+  "onlineBanner": "Connected — reports will be sent immediately.",
+  "refreshStatus": "Check connection",
+  "syncReports": "Sync Reports",
   "typePlaceholder": "Incident type",
   "descriptionPlaceholder": "Describe what happened...",
   "locationPlaceholder": "City, Region, Country",
-  "privacyMessage": "Your privacy and security are our top priorities."
+  "privacyMessage": "Your privacy and security are our top priorities.",
+  "statusOnline": "Connected",
+  "statusOffline": "Limited Connectivity"
 }
