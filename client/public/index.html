@@ -7,6 +7,44 @@
     <meta name="theme-color" content="#000000" />
     <meta name="description" content="Anonymous reporting application" />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <!-- Include Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Include Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: {
+                50: '#e3f2fd',
+                100: '#bbdefb',
+                200: '#90caf9',
+                300: '#64b5f6',
+                400: '#42a5f5',
+                500: '#3498db',
+                600: '#2980b9',
+                700: '#1e88e5',
+                800: '#1565c0',
+                900: '#0d47a1',
+              },
+              success: {
+                500: '#2ecc71',
+                600: '#27ae60',
+              },
+              warning: {
+                500: '#f39c12',
+                600: '#e67e22',
+              },
+              danger: {
+                500: '#e74c3c',
+                600: '#c0392b',
+              },
+            }
+          }
+        }
+      }
+    </script>
     <!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/

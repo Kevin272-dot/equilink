@@ -8,5 +8,9 @@
   "reportsSynced": "Tous les rapports en attente ont été synchronisés.",
   "reportSubmitted": "Rapport soumis avec succès.",
   "reportQueued": "Vous êtes hors ligne. Le rapport sera mis en file d'attente pour une synchronisation ultérieure.",
-  "offlineBanner": "Vous êtes hors ligne — les rapports seront mis en file d'attente."
+  "offlineBanner": "Vous êtes hors ligne — les rapports seront mis en file d'attente.",
+  "typePlaceholder": "Type d'incident",
+  "descriptionPlaceholder": "Décrivez ce qui s'est passé...",
+  "locationPlaceholder": "Ville, Région, Pays",
+  "privacyMessage": "Votre confidentialité et votre sécurité sont nos priorités absolues."
 }

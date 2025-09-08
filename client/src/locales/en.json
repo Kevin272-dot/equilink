@@ -8,5 +8,9 @@
   "reportsSynced": "All queued reports have been synced.",
   "reportSubmitted": "Report submitted successfully.",
   "reportQueued": "You're offline. Report queued for later sync.",
-  "offlineBanner": "You are offline — reports will be queued."
+  "offlineBanner": "You are offline — reports will be queued.",
+  "typePlaceholder": "Incident type",
+  "descriptionPlaceholder": "Describe what happened...",
+  "locationPlaceholder": "City, Region, Country",
+  "privacyMessage": "Your privacy and security are our top priorities."
 }

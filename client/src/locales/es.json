@@ -8,5 +8,9 @@
   "reportsSynced": "Todos los reportes pendientes han sido sincronizados.",
   "reportSubmitted": "Reporte enviado exitosamente.",
   "reportQueued": "Estás desconectado. El reporte se guardará para sincronizar más tarde.",
-  "offlineBanner": "Estás desconectado — los reportes se guardarán en cola."
+  "offlineBanner": "Estás desconectado — los reportes se guardarán en cola.",
+  "typePlaceholder": "Tipo de incidente",
+  "descriptionPlaceholder": "Describe lo que ocurrió...",
+  "locationPlaceholder": "Ciudad, Región, País",
+  "privacyMessage": "Tu privacidad y seguridad son nuestras principales prioridades."
 }
