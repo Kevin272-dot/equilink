@@ -4,130 +4,122 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>EquiLink - Report Details</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        line-height: 1.6;
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 20px;
-        color: #333;
-      }
-      h1 {
-        color: #2c3e50;
-        text-align: center;
-        margin-bottom: 30px;
-      }
-      .report-container {
-        background-color: #f8f9fa;
-        border-radius: 8px;
-        padding: 20px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      }
-      .report-field {
-        margin-bottom: 15px;
-      }
-      .field-label {
-        font-weight: bold;
-        color: #2c3e50;
-      }
-      .report-actions {
-        margin-top: 30px;
-        text-align: center;
-      }
-      .btn {
-        display: inline-block;
-        padding: 10px 20px;
-        background-color: #3498db;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        text-decoration: none;
-        font-size: 16px;
-      }
-      .btn:hover {
-        background-color: #2980b9;
-      }
-      .status-badge {
-        display: inline-block;
-        padding: 5px 10px;
-        border-radius: 4px;
-        font-size: 14px;
-        color: white;
-      }
-      .status-pending {
-        background-color: #f39c12;
-      }
-      .status-approved {
-        background-color: #2ecc71;
-      }
-      .status-rejected {
-        background-color: #e74c3c;
-      }
-      .notes {
-        background-color: #ecf0f1;
-        padding: 15px;
-        border-radius: 4px;
-        margin-top: 15px;
-      }
-    </style>
+    <!-- Include Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#3498db",
+              dark: "#2c3e50",
+              light: "#ecf0f1",
+              success: "#2ecc71",
+              warning: "#f39c12",
+              danger: "#e74c3c",
+            },
+          },
+        },
+      };
+    </script>
   </head>
-  <body>
-    <h1>Report Details</h1>
+  <body class="bg-gray-100 text-gray-800 min-h-screen py-8 px-4">
+    <div class="max-w-2xl mx-auto">
+      <h1 class="text-3xl font-bold text-center text-dark mb-8">
+        Report Details
+      </h1>
 
-    <div class="report-container">
-      <div class="report-field">
-        <span class="field-label">Report ID:</span>
-        {{ report.id }}
-      </div>
+      <div
+        class="bg-white rounded-lg shadow-md p-6 mb-8 transition-all duration-300 hover:shadow-lg"
+      >
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-y-4 mb-6">
+          <div>
+            <span class="text-dark font-semibold block mb-1">Report ID</span>
+            <span class="font-mono text-sm">{{ report.id }}</span>
+          </div>
 
-      <div class="report-field">
-        <span class="field-label">Status:</span>
-        <span class="status-badge status-{{ report.status }}"
-          >{{ report.status }}</span
-        >
-      </div>
+          <div>
+            <span class="text-dark font-semibold block mb-1">Status</span>
+            {% if report.status == 'pending' %}
+            <span
+              class="inline-block px-3 py-1 rounded-full text-xs font-medium bg-warning text-white"
+            >
+              {{ report.status }}
+            </span>
+            {% elif report.status == 'approved' %}
+            <span
+              class="inline-block px-3 py-1 rounded-full text-xs font-medium bg-success text-white"
+            >
+              {{ report.status }}
+            </span>
+            {% else %}
+            <span
+              class="inline-block px-3 py-1 rounded-full text-xs font-medium bg-danger text-white"
+            >
+              {{ report.status }}
+            </span>
+            {% endif %}
+          </div>
 
-      <div class="report-field">
-        <span class="field-label">Type:</span>
-        {{ report.type }}
-      </div>
+          <div>
+            <span class="text-dark font-semibold block mb-1">Type</span>
+            <span>{{ report.type }}</span>
+          </div>
 
-      <div class="report-field">
-        <span class="field-label">Description:</span>
-        <p>{{ report.description }}</p>
-      </div>
+          <div>
+            <span class="text-dark font-semibold block mb-1">Language</span>
+            <span>{{ report.language }}</span>
+          </div>
 
-      {% if report.location %}
-      <div class="report-field">
-        <span class="field-label">Location:</span>
-        {{ report.location }}
-      </div>
-      {% endif %}
+          <div>
+            <span class="text-dark font-semibold block mb-1">Submitted</span>
+            <span>{{ report.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</span>
+          </div>
 
-      <div class="report-field">
-        <span class="field-label">Submitted:</span>
-        {{ report.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}
-      </div>
+          {% if report.location %}
+          <div>
+            <span class="text-dark font-semibold block mb-1">Location</span>
+            <span>{{ report.location }}</span>
+          </div>
+          {% endif %}
+        </div>
 
-      <div class="report-field">
-        <span class="field-label">Language:</span>
-        {{ report.language }}
-      </div>
+        <div class="mb-6">
+          <span class="text-dark font-semibold block mb-2">Description</span>
+          <p class="bg-gray-50 p-4 rounded-md">{{ report.description }}</p>
+        </div>
 
-      {% if report.notes %}
-      <div class="report-field">
-        <span class="field-label">Notes:</span>
-        <div class="notes">{{ report.notes }}</div>
-      </div>
-      {% endif %}
+        {% if report.notes %}
+        <div class="mb-6">
+          <span class="text-dark font-semibold block mb-2">Notes</span>
+          <div class="bg-light p-4 rounded-md">{{ report.notes }}</div>
+        </div>
+        {% endif %}
 
-      <div class="report-actions">
-        <a href="{{ url_for('reports.get_all_reports') }}" class="btn"
-          >Back to Reports</a
-        >
+        <div class="flex justify-center mt-8">
+          <a
+            href="{{ url_for('reports.get_all_reports') }}"
+            class="bg-primary hover:bg-primary/80 text-white py-2 px-6 rounded-md font-medium text-center transition-colors duration-200"
+          >
+            Back to Reports
+          </a>
+        </div>
       </div>
     </div>
+
+    <!-- Add animation -->
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const container = document.querySelector(".bg-white");
+        container.style.opacity = "0";
+        container.style.transform = "translateY(20px)";
+
+        setTimeout(() => {
+          container.style.transition = "opacity 0.5s ease, transform 0.5s ease";
+          container.style.opacity = "1";
+          container.style.transform = "translateY(0)";
+        }, 100);
+      });
+    </script>
   </body>
 </html>

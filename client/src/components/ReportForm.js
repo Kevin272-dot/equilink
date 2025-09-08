@@ -10,6 +10,7 @@ function ReportForm() {
   const [location, setLocation] = useState('');
   const [language, setLanguage] = useState(i18n.language);
   const [statusMessage, setStatusMessage] = useState('');
+  const [isOnline, setIsOnline] = useState(navigator.onLine);
   const firstInputRef = useRef();
 
   // focus first input on mount
@@ -17,10 +18,57 @@ function ReportForm() {
     firstInputRef.current.focus();
   }, []);
 
+  // Check actual online connectivity
+  useEffect(() => {
+    const checkOnlineStatus = async () => {
+      try {
+        // Send a small HEAD request to the root URL to verify actual connectivity
+        await axios.head('/', { timeout: 3000 });
+        setIsOnline(true);
+      } catch (error) {
+        // If the request fails with a response, the server is still reachable
+        if (error.response) {
+          setIsOnline(true);
+        } else {
+          // No response means we're truly offline
+          setIsOnline(false);
+        }
+      }
+    };
+
+    // Check status initially
+    checkOnlineStatus();
+
+    // Set up event listeners for online/offline events
+    const handleOnline = () => {
+      checkOnlineStatus(); // Verify we're actually online
+    };
+    
+    const handleOffline = () => {
+      setIsOnline(false);
+    };
+
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+
+    // Set up a periodic check every 30 seconds
+    const intervalId = setInterval(checkOnlineStatus, 30000);
+
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+      clearInterval(intervalId);
+    };
+  }, []);
+
   // sync queued reports when back online
   useEffect(() => {
     async function syncReports() {
+      if (!isOnline) return; // Don't attempt to sync if we're not online
+      
       const queued = await getQueuedReports();
+      if (queued.length === 0) return; // No reports to sync
+      
       for (const report of queued) {
         try {
           await axios.post('/reports', report);
@@ -32,9 +80,13 @@ function ReportForm() {
       await clearQueuedReports();
       setStatusMessage(t('reportsSynced'));
     }
-    window.addEventListener('online', syncReports);
-    return () => window.removeEventListener('online', syncReports);
-  }, [t]);
+    
+    // Try to sync when online status changes to true
+    if (isOnline) {
+      syncReports();
+    }
+    
+  }, [isOnline, t]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -46,11 +98,12 @@ function ReportForm() {
       language,
       timestamp: new Date().toISOString() // Add timestamp for better tracking
     };
-    if (navigator.onLine) {
+    if (isOnline) {
       try {
         await axios.post('/reports', report);
         setStatusMessage(t('reportSubmitted'));
       } catch (e) {
+        // If the post fails, queue the report
         await addReportToQueue(report);
         setStatusMessage(t('reportQueued'));
       }
@@ -66,7 +119,7 @@ function ReportForm() {
   return (
     <main role="main">
       <h1>{t('appTitle')}</h1>
-      {!navigator.onLine && <div role="alert">{t('offlineBanner')}</div>}
+      {!isOnline && <div role="alert">{t('offlineBanner')}</div>}
       <form onSubmit={handleSubmit} aria-labelledby="report-form">
         <div>
           <label htmlFor="type">{t('typeLabel')}</label>
