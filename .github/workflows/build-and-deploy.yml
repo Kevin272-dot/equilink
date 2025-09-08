@@ -1,0 +1,42 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+
+      - name: Build React Frontend
+        working-directory: client
+        run: |
+          npm ci
+          npm run build
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Install Backend Dependencies
+        run: |
+          python -m venv .venv
+          . .venv/Scripts/Activate.ps1
+          pip install -r requirements.txt
+
+      - name: Apply Database Migrations
+        run: |
+          . .venv/Scripts/Activate.ps1
+          python -m flask db upgrade
+
+      - name: Deploy to Server
+        run: |
+          echo "Deploy steps go here (e.g., Azure CLI, SCP, SSH)"

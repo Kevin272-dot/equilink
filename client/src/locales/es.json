@@ -1,0 +1,11 @@
+{
+  "appTitle": "Reporte Anónimo",
+  "submit": "Enviar",
+  "typeLabel": "Tipo de Reporte",
+  "descriptionLabel": "Descripción",
+  "languageLabel": "Idioma",
+  "reportsSynced": "Todos los reportes pendientes han sido sincronizados.",
+  "reportSubmitted": "Reporte enviado exitosamente.",
+  "reportQueued": "Estás desconectado. El reporte se guardará para sincronizar más tarde.",
+  "offlineBanner": "Estás desconectado — los reportes se guardarán en cola."
+}
