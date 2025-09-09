@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import HomePage from './components/HomePage';
 import ReportForm from './components/ReportForm';
 import Dashboard from './components/Dashboard';
+import AnalyticsDashboard from './components/AnalyticsDashboard';
 
 function App() {
   const { t, i18n } = useTranslation();
@@ -57,6 +58,13 @@ function App() {
                   >
                     {t('dashboard')}
                   </Link>
+                  <Link 
+                    to="/analytics" 
+                    className="text-gray-500 hover:text-primary-600 px-3 py-2 rounded-md text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary-500" 
+                    role="menuitem"
+                  >
+                    Analytics
+                  </Link>
                 </div>
               </div>
               <div className="flex items-center">
@@ -87,6 +95,7 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/report" element={<ReportForm />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/analytics" element={<AnalyticsDashboard />} />
           </Routes>
         </main>
       </div>

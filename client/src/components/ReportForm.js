@@ -185,15 +185,39 @@ function ReportForm() {
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <i className="fas fa-tag text-gray-400"></i>
                 </div>
-                <input
+                <select
                   id="type"
                   ref={firstInputRef}
                   value={type}
                   onChange={e => setType(e.target.value)}
                   required
                   className="focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 py-2 sm:text-sm border-gray-300 rounded-md"
-                  placeholder={t('typePlaceholder')}
-                />
+                >
+                  <option value="">{t('selectIncidentType')}</option>
+                  <optgroup label={t('harassmentDiscrimination')}>
+                    <option value="sexualHarassment">{t('sexualHarassment')}</option>
+                    <option value="verbalAbuse">{t('verbalAbuse')}</option>
+                    <option value="physicalViolence">{t('physicalViolence')}</option>
+                    <option value="genderDiscrimination">{t('genderDiscrimination')}</option>
+                    <option value="raceDiscrimination">{t('raceDiscrimination')}</option>
+                    <option value="ageDiscrimination">{t('ageDiscrimination')}</option>
+                    <option value="religionDiscrimination">{t('religionDiscrimination')}</option>
+                    <option value="disabilityDiscrimination">{t('disabilityDiscrimination')}</option>
+                  </optgroup>
+                  <optgroup label={t('safetyConcerns')}>
+                    <option value="unsafeConditions">{t('unsafeConditions')}</option>
+                    <option value="equipmentFailure">{t('equipmentFailure')}</option>
+                    <option value="environmentalHazards">{t('environmentalHazards')}</option>
+                  </optgroup>
+                  <optgroup label={t('workplaceIssues')}>
+                    <option value="bullying">{t('bullying')}</option>
+                    <option value="retaliation">{t('retaliation')}</option>
+                    <option value="policyViolation">{t('policyViolation')}</option>
+                    <option value="ethicsViolation">{t('ethicsViolation')}</option>
+                    <option value="fraud">{t('fraud')}</option>
+                    <option value="dataPrivacy">{t('dataPrivacy')}</option>
+                  </optgroup>
+                </select>
               </div>
             </div>
             

@@ -2,6 +2,7 @@ from flask import Flask, request
 from config import Config
 from extensions import db, migrate, cors
 from routes import reports_bp
+import datetime
 
 
 # We'll handle language selection in the frontend
@@ -29,7 +30,9 @@ def create_app():
     # Add a health check endpoint for the React app to check connectivity
     @app.route('/api/health')
     def health_check():
-        return {"status": "online"}, 200
+        # Always return 200 status to ensure the app always thinks it's online
+        # This is critical for the UX since offline detection causes more problems than it solves
+        return {"status": "online", "timestamp": str(datetime.datetime.now())}, 200
 
     @app.route('/', defaults={'path': ''})
     @app.route('/<path:path>')
